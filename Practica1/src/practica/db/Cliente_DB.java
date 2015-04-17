@@ -23,6 +23,7 @@ public class Cliente_DB {
     
     public Integer consultar_Cuenta(Integer idClientes) throws HibernateException {
         
+        this.conDB.init_Operations();
         Session session = this.conDB.getSession();
         Transaction transaction = this.conDB.getTransaction();
         Integer cuenta=null;
