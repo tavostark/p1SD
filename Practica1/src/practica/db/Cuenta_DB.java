@@ -25,12 +25,30 @@ public class Cuenta_DB {
         this.conectDB = new Conexion_DB();
     }
     
-    public void updateCuenta(Cuenta cu) throws HibernateException {
+    public int updateCuenta(Cuenta cu) throws HibernateException {
         
+        int r;
         this.conectDB.init_Operations();
         Session session= this.conectDB.getSession();
+        Transaction transaction= this.conectDB.getTransaction();
         
+        try {
+            
+            session.update(cu);
+            transaction.commit();
+            r=1;
+            
+        }
+        catch(HibernateException ex) {
+            r=0;
+            this.conectDB.catch_Exception(ex);
+            throw ex;
+        }
+        finally {
+            session.close();
+        }
         
+        return r;
     }
     
     public Double getBalance(Long idCuenta) throws HibernateException {
@@ -42,7 +60,7 @@ public class Cuenta_DB {
         
         try {
             
-            balance=(Double)session.createQuery("select c.balance from Cuenta where c.idCuenta= :cuenta")
+            balance=(Double)session.createQuery("select c.balance from Cuenta c where c.idCuenta= :cuenta")
                     .setParameter("cuenta", idCuenta)
                     .uniqueResult();
             
@@ -67,7 +85,7 @@ public class Cuenta_DB {
         Session session= this.conectDB.getSession();
         Transaction transaction= this.conectDB.getTransaction();
         int r;
-        
+        System.out.println("el balance es: "+balance+ " y la cuenta es: "+idCuenta);
         try {
             
             Query query=session.createQuery("update Cuenta c set c.balance= :balance where c.idCuenta= :cuenta")

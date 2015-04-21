@@ -24,6 +24,10 @@ public class Cuenta  implements java.io.Serializable {
     public Cuenta() {
     }
 
+    public Cuenta(long idCuenta) {
+        this.idCuenta = idCuenta;
+    }
+    
     public Cuenta(long idCuenta, double balance, int idClientes) {
        this.idCuenta = idCuenta;
        this.balance = balance;

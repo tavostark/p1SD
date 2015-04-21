@@ -24,14 +24,14 @@ public class Conexion_DB {
     
     public void init_Operations() {
         
-        this.setSession(HibernateUtil.getSessionFactory().openSession());
-        this.setTransaction(this.getSession().beginTransaction());
+        this.session= HibernateUtil.getSessionFactory().openSession();
+        this.transaction= this.getSession().beginTransaction();
         
     }
     
     public void catch_Exception(HibernateException ex) {
         System.out.println("Error en la capa de acceso de datos");
-        throw ex;
+        this.transaction.rollback();
     }
 
     /**
