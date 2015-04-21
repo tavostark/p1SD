@@ -137,4 +137,30 @@ public class Cuenta_DB {
         
     }
     
+    public Cuenta getCuenta(Long idCuenta) throws HibernateException {
+        
+        Cuenta cuenta= null;
+        this.conectDB.init_Operations();
+        Session session= this.conectDB.getSession();
+        Transaction transaction=  this.conectDB.getTransaction();
+        
+        try {
+            
+            cuenta=(Cuenta)session.createCriteria(Cuenta.class)
+                    .add(Restrictions.eq("idCuenta", idCuenta))
+                    .uniqueResult();
+            
+        }
+        catch(HibernateException ex) {
+            this.conectDB.catch_Exception(ex);
+            throw ex;
+        }
+        finally {
+            session.close();
+        }
+        
+        return cuenta;
+        
+    }
+    
 }

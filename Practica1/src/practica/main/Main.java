@@ -5,12 +5,9 @@
  */
 package practica.main;
 
-import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import practica.entidad.Cuenta;
@@ -47,20 +44,18 @@ public class Main extends Thread {
 
 
                 if (message.charAt(0)== '1') {
-                    //long cuenta = 123456789;
                     
                     for(int i=2; i<message.length(); i++){
                         cuenta+=message.charAt(i);
                     }
                     
                     Saldo saldo = new Saldo(Long.parseLong(cuenta));
-                    resultado = saldo.getSaldo().toString();
+                    resultado = saldo.getSaldo();
 
                     salida = new DataOutputStream(socketClient.getOutputStream());
                     salida.writeUTF(resultado);
 
-                    message = "";
-                    cuenta="";
+                    message = cuenta= "";
 
                 } 
                 else if (message.charAt(0) == '2') {
@@ -80,8 +75,6 @@ public class Main extends Thread {
                         }
                     }
 
-                    //long cuenta = 123456789;
-
                     Retiro retiro = new Retiro(dinero, Long.parseLong(cuenta));
 
                     resultado = retiro.getRetiro();
@@ -89,9 +82,7 @@ public class Main extends Thread {
                     salida = new DataOutputStream(socketClient.getOutputStream());
                     salida.writeUTF(resultado);
 
-                    message = "";
-                    dinero = "";
-                    cuenta= "";
+                    message = dinero= cuenta= "";
                 } 
                 else if (message.charAt(0) == '3') {
                     int z=0;
@@ -110,8 +101,6 @@ public class Main extends Thread {
                         }
                     }
 
-                   // long cuenta = 123456789;
-
                     Deposito deposito = new Deposito(Long.parseLong(cuenta), Double.parseDouble(dinero));
 
                     resultado = deposito.setDeposito();
@@ -119,8 +108,7 @@ public class Main extends Thread {
                     salida = new DataOutputStream(socketClient.getOutputStream());
                     salida.writeUTF(resultado);
 
-                    message = "";
-                    dinero = "";
+                    message = dinero= "";
                 }
                 else if(message.charAt(0)== '4') {
                     
@@ -158,10 +146,7 @@ public class Main extends Thread {
                     salida = new DataOutputStream(socketClient.getOutputStream());
                     salida.writeUTF(resultado);
 
-                    message = "";
-                    origen = "";
-                    destino = "";
-                    monto = "";
+                    message = origen= destino= monto= "";
                     
                 }
 

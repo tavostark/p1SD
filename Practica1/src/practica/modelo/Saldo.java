@@ -5,7 +5,13 @@
  */
 package practica.modelo;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Properties;
 import practica.db.Cuenta_DB;
+import practica.entidad.Cuenta;
 
 /**
  *
@@ -15,6 +21,7 @@ public class Saldo {
     
     private Long cuenta;
     private Double balance;
+    private Properties props;
     
     public Saldo() {
         
@@ -22,15 +29,41 @@ public class Saldo {
     
     public Saldo(Long cuenta) {
         this.cuenta = cuenta;
+        
+        File file= new File("");
+        
+        this.props= new Properties();
+        try {
+            props.load(new FileInputStream(file.getAbsolutePath()+"/src/mensajes.properties"));
+        }
+        catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+            
+        }
+        catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
     
-    public Double getSaldo() {
+    public String getSaldo() {
         
         Cuenta_DB cuDB= new Cuenta_DB();
+        String result=null;
         
-        this.balance= cuDB.getBalance(this.cuenta);
+        Cuenta account= cuDB.getCuenta(this.cuenta);
         
-        return this.balance;
+        if(account==null){
+            result = this.props.getProperty("ms6");
+        }
+        else{
+            this.balance= cuDB.getBalance(this.cuenta);
+            
+            result= this.balance.toString();
+        }
+        
+        
+        
+        return result;
         
     }
 
