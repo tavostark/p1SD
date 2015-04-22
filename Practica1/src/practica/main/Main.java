@@ -55,7 +55,8 @@ public class Main extends Thread {
                     salida = new DataOutputStream(socketClient.getOutputStream());
                     salida.writeUTF(resultado);
 
-                    message = cuenta= "";
+                    message = "";
+                    cuenta= "";
 
                 } 
                 else if (message.charAt(0) == '2') {
@@ -82,7 +83,9 @@ public class Main extends Thread {
                     salida = new DataOutputStream(socketClient.getOutputStream());
                     salida.writeUTF(resultado);
 
-                    message = dinero= cuenta= "";
+                    message =""; 
+                    dinero="";
+                    cuenta= "";
                 } 
                 else if (message.charAt(0) == '3') {
                     int z=0;
@@ -108,7 +111,9 @@ public class Main extends Thread {
                     salida = new DataOutputStream(socketClient.getOutputStream());
                     salida.writeUTF(resultado);
 
-                    message = dinero= "";
+                    message ="";
+                    dinero= "";
+                    cuenta="";
                 }
                 else if(message.charAt(0)== '4') {
                     
@@ -146,7 +151,10 @@ public class Main extends Thread {
                     salida = new DataOutputStream(socketClient.getOutputStream());
                     salida.writeUTF(resultado);
 
-                    message = origen= destino= monto= "";
+                    message ="";
+                    origen="";
+                    destino="";
+                    monto= "";
                     
                 }
 

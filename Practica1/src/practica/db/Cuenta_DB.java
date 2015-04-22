@@ -85,7 +85,7 @@ public class Cuenta_DB {
         Session session= this.conectDB.getSession();
         Transaction transaction= this.conectDB.getTransaction();
         int r;
-        System.out.println("el balance es: "+balance+ " y la cuenta es: "+idCuenta);
+     
         try {
             
             Query query=session.createQuery("update Cuenta c set c.balance= :balance where c.idCuenta= :cuenta")
